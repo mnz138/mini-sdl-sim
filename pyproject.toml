@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mini-sdl-sim"
+version = "0.1.0"
+description = "自驱动实验室闭环筛选仿真（全程仿真，目标函数为合成）"
+requires-python = ">=3.11"
+dependencies = [
+    "pylabrobot==0.2.2",
+    "baybe==0.15.0",
+    "numpy",
+    # Intel macOS uses torch 2.2.2, whose NumPy bridge requires NumPy 1.x.
+    "numpy<2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    # PyArrow 26 requires NumPy 2 at runtime; keep Streamlit tables usable on Intel Mac.
+    "pyarrow==20.0.0; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "pandas",
+    "matplotlib",
+    "streamlit",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+include = ["mini_sdl*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+data/
+*.jsonl
+playground/
+.DS_Store
+
+# Local configuration and generated files
+.env
+.env.*
+.streamlit/secrets.toml
+build/
+dist/
+.coverage
+htmlcov/
+
+# Personal learning notes belong outside this repository
+解疑/
+docs/PROJECT_WALKTHROUGH_ZH.md
+docs/ASYNC_USAGE_INDEX.md
+docs/flow-*.mmd
