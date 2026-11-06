@@ -120,4 +120,5 @@ class Electrolyte(Profile):
         r_b = extract_rb(f, z)
         await lab.clock.sleep(150)                               # 扫频约 60 s + 清洗吹干约 90 s
         sample.raw["R_b_ohm"] = round(r_b, 2)
+        sample.raw["cell_temperature_C"] = 25.0                  # 仿真恒温；真机应读温度传感器
         sample.result = K_CELL / r_b * 1000

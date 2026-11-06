@@ -16,7 +16,14 @@
       "request": "launch",
       "python": "${workspaceFolder}/.venv/bin/python",
       "program": "${workspaceFolder}/run_campaign.py",
-      "args": ["--profile", "electrolyte", "--optimizer", "bayes", "--rounds", "3"],
+      "args": [
+        "--profile",
+        "electrolyte",
+        "--optimizer",
+        "bayes",
+        "--rounds",
+        "3"
+      ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     },
@@ -27,14 +34,38 @@
       "python": "${workspaceFolder}/.venv/bin/python",
       "module": "streamlit",
       "args": [
-        "run", "app.py",
-        "--server.showEmailPrompt", "false",
-        "--server.headless", "false",
-        "--server.address", "127.0.0.1",
-        "--browser.gatherUsageStats", "false"
+        "run",
+        "app.py",
+        "--server.showEmailPrompt",
+        "false",
+        "--server.headless",
+        "false",
+        "--server.address",
+        "127.0.0.1",
+        "--browser.gatherUsageStats",
+        "false"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "工作台可视化",
+      "type": "debugpy",
+      "request": "launch",
+      "python": "${workspaceFolder}/.venv/bin/python",
+      "program": "${workspaceFolder}/scripts/visualize_deck.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "网页前端 + 工作台可视化",
+      "configurations": [
+        "网页前端",
+        "工作台可视化"
+      ],
+      "stopAll": true
     }
   ]
 }

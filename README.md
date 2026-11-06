@@ -82,3 +82,30 @@ python3.12 -m venv .venv
 
 `models/clock`、`lab`、`profiles`、`scheduler`、`optimizer/campaign`、命令行、网页。
 先读对应测试中的输入、预期输出和失败条件，再解释实现如何满足这些条件。
+
+## 借鉴来源与引用
+
+本项目是个人学习项目，AI 辅助开发，全程仿真。下表列出直接使用的开源软件，以及问题设定、物理公式所参照的文献；仿真参数为演示用合成值，不来自这些文献的数据。
+
+### 开源软件（作为依赖使用，未修改其源码）
+
+| 软件 | 用途 | 引用 | 许可 |
+| --- | --- | --- | --- |
+| PyLabRobot 0.2.2 | 移液工作站仿真后端、枪头与液量追踪、工作台可视化 | Wierenga, Golas, Ho, Coley, Esvelt, *Device* **1**, 100111 (2023), [doi:10.1016/j.device.2023.100111](https://doi.org/10.1016/j.device.2023.100111)；[GitHub](https://github.com/PyLabRobot/pylabrobot) | MIT |
+| BayBE 0.15.0 | 贝叶斯优化推荐（Merck KGaA 开源） | Fitzner 等, *Digital Discovery* **4**, 1991–2000 (2025), [doi:10.1039/D5DD00050E](https://doi.org/10.1039/D5DD00050E)；[GitHub](https://github.com/emdgroup/baybe) | Apache-2.0 |
+
+### 参照的工作与公式
+
+| 内容 | 本项目借鉴了什么 | 来源 |
+| --- | --- | --- |
+| Clio 电解液自主优化平台 | 电解液问题设定（锂盐浓度 × 溶剂比例，最大化电导率）、阻抗谱取体电阻换算电导率、仪器控制与决策分层、手套箱与清洗等工程约束。本项目改用 BayBE 和移液仿真，没有照搬其泵阀硬件和 Dragonfly 优化器 | Dave 等, *Nat. Commun.* **13**, 5454 (2022), [doi:10.1038/s41467-022-32938-1](https://doi.org/10.1038/s41467-022-32938-1)；[数据与代码](https://github.com/BattModels) |
+| Casteel–Amis 经验式 | `electrolyte.py` 中电导率随浓度先升后降的曲线形状 | Casteel & Amis, *J. Chem. Eng. Data* **17**, 55–59 (1972), [doi:10.1021/je60052a029](https://doi.org/10.1021/je60052a029) |
+| Parker 激光闪射公式 | `tim.py` 中 `α = 0.1388 d²/t_half` 与背面温升级数解 | Parker, Jenkins, Butler, Abbott, *J. Appl. Phys.* **32**, 1679–1684 (1961), [doi:10.1063/1.1728417](https://doi.org/10.1063/1.1728417) |
+| Lewis–Nielsen 模型 | `tim.py` 中填料复合材料导热系数 | Nielsen, *Ind. Eng. Chem. Fundam.* **13**, 17–20 (1974), [doi:10.1021/i160049a004](https://doi.org/10.1021/i160049a004) |
+| Krieger–Dougherty 公式 | `tim.py` 中黏度随填料接近最大堆积分数急剧上升 | Krieger & Dougherty, *Trans. Soc. Rheol.* **3**, 137–152 (1959), [doi:10.1122/1.548848](https://doi.org/10.1122/1.548848) |
+| 谐振腔微扰法 | `cavity.py` 由谐振频率下移和 Q 下降反推 Dk/Df 的思路；代码中是简化微扰式，不是该标准的完整方法 | IPC-TM-650 2.5.5.13（分离圆柱谐振腔法） |
+| 自驱动实验室综述与评价指标 | 分层结构与通量、精度等评价口径 | Tom 等, *Chem. Rev.* **124**, 9633–9732 (2024), [doi:10.1021/acs.chemrev.4c00055](https://doi.org/10.1021/acs.chemrev.4c00055)；Volk & Abolhasani, *Nat. Commun.* **15**, 1378 (2024), [doi:10.1038/s41467-024-45569-5](https://doi.org/10.1038/s41467-024-45569-5) |
+
+## 许可
+
+本仓库代码以 [MIT 许可](LICENSE) 发布。依赖的第三方软件遵循各自许可。
